@@ -6,15 +6,15 @@
     <div class="card">
       <div class="card-content">
         <ul class="messages">
-          <li>
+          <li v-for="message in messages" :key="message.id">
             <span class="teal-text">
-              Name
+              {{message.name}}
             </span>
             <span class="grey-text text-darken-3">
-              message
+              {{message.content}}
             </span>
             <span class="grey-text time">
-              time
+              {{message.timestamp}}
             </span>
           </li>
         </ul>
@@ -27,15 +27,34 @@
 </template>
 
 <script>
+import db from '@/firebase/init';
 import NewMessage from '@/components/NewMessage';
 export default {
   name: 'Chat',
   props: ['name'],
   data() {
-    return {};
+    return {
+      messages: [],
+    };
   },
   components: {
     NewMessage,
+  },
+  created() {
+    let ref = db.collection('messages').orderBy('timestamp');
+    ref.onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          let doc = change.doc;
+          this.messages.push({
+            id: doc.id,
+            name: doc.data().name,
+            content: doc.data().content,
+            timestamp: doc.data().timestamp,
+          });
+        }
+      });
+    });
   },
 };
 </script>

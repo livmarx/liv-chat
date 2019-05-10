@@ -35,6 +35,8 @@ export default {
           .catch(err => {
             console.error(err);
           });
+        this.newMessage = null;
+        this.feedback = null;
       } else {
         this.feedback = 'Must enter a message';
       }
