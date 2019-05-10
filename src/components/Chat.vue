@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import db from '@/firebase/init';
 import NewMessage from '@/components/NewMessage';
 export default {
@@ -50,7 +51,7 @@ export default {
             id: doc.id,
             name: doc.data().name,
             content: doc.data().content,
-            timestamp: doc.data().timestamp,
+            timestamp: moment(doc.data().timestamp).format('lll'),
           });
         }
       });
@@ -69,5 +70,6 @@ export default {
 }
 .chat .time {
   display: block;
+  font-size: 0.8em;
 }
 </style>
