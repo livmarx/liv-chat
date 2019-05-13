@@ -1,6 +1,6 @@
 <template>
   <div class="welcome container">
-   <h1 class="center-align">Liv Chat App</h1>
+   <h1 class="center-align">Liv's Chat App</h1>
    <div class="card">
      <div class="card-content center-align">
        <h2 class="teal-text">
